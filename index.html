@@ -1,9 +1,5 @@
 <!DOCTYPE HTML>
-<!--
-	Aerial by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
+
 <html>
 
 <head>
@@ -16,6 +12,19 @@
 	<noscript>
 		<link rel="stylesheet" href="assets/css/noscript.css" />
 	</noscript>
+
+	<script type="text/javascript">
+		var totalCount = 4;
+		function ChangeIt() {
+
+			var num = Math.ceil(Math.random() * totalCount);
+			var imgbg = '#ffffff url("assets/css/images/zaamombg' + num + '.png") bottom left';
+			document.querySelector("#bg").style.background = imgbg;
+			console.log(imgbg);
+			document.querySelector("#bg").style.backgroundRepeat = "repeat-x";// Background no-repeat
+		}
+	</script>
+
 </head>
 
 <body class="is-preload">
@@ -24,7 +33,7 @@
 	</div> -->
 	<div id="wrapper">
 		<div id="bg"></div>
-		<div id="overlay"></div>
+		<!-- <div id="overlay"></div> -->
 
 		<div id="main">
 
@@ -32,7 +41,7 @@
 			<header id="header">
 
 
-				<img class="logo-horizontal" src="assets/css/images/logo-zaamom-horizontal.png" alt="">
+				<img class="logo-horizontal" src="assets/css/images/logo-zaamom-horizontal--.png" alt="">
 				<p>Street artist &nbsp;&bull;&nbsp; Designer &nbsp;&bull;&nbsp; Illustrator</p>
 				<nav>
 					<ul>
@@ -43,9 +52,7 @@
 						<li><a href="contact.html"><img class="menu-icon" src="assets/css/images/icons/contact.png"
 									alt=""></a></li>
 
-						<!-- <li><a href="About.html" class="fa fa-id-card"></a></li>
-						<li><a href="gallery.html" class="fa fa-camera"><span class="label">Dribbble</span></a></li>
-						<li><a href="contact.html" class="icon solid fa-envelope"><span class="label">Email</span></a> -->
+
 						</li>
 					</ul>
 				</nav>
@@ -62,6 +69,9 @@
 		window.onload = function () { document.body.classList.remove('is-preload'); }
 		window.ontouchmove = function () { return false; }
 		window.onorientationchange = function () { document.body.scrollTop = 0; }
+		ChangeIt();
+
+
 	</script>
 </body>
 

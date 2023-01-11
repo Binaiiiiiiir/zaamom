@@ -2,10 +2,8 @@
   margin: 0;
 }
 
-@font-face {
-  font-family: magazine;
-  src: url(../webfonts/Colours\ Personal\ Use.ttf);
-}
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap");
+
 .container {
   display: flex;
   flex-direction: row;
@@ -32,12 +30,28 @@
   align-items: center;
 }
 .text-left {
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  font-size: 1.6rem;
+  display: flex;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 1.2rem;
   margin: 40px 40px;
   text-align: center;
   justify-content: center;
   align-items: center;
+}
+.logo-icesco {
+  position: absolute;
+  top: 0;
+  left: 10px;
+  z-index: 10;
+}
+.about-title {
+  width: 300px;
+  height: auto;
+}
+
+.logo-icesco img {
+  width: 100px;
+  height: auto;
 }
 
 .right-div {
@@ -58,12 +72,14 @@ img {
     width: 100%;
     padding: 0px;
   }
-
+  img {
+    height: 80vh;
+  }
   .right-div {
     width: 100%;
   }
 
-  .title-left {
+  /* .title-left {
     font-size: 3rem;
-  }
+  } */
 }

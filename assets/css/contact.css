@@ -222,7 +222,13 @@ a {
   outline: 0;
   text-decoration: none;
 }
-
+.logolink {
+  text-decoration: none;
+  border-bottom: none;
+}
+.contact-title {
+  width: 400px;
+}
 a:hover {
   border-color: transparent;
 }
@@ -667,6 +673,8 @@ a:hover {
 
 #header p {
   font-size: 1.25em;
+  font-weight: 600;
+
   margin: 0.75em 0 0.25em 0;
   opacity: 0.75;
 }
@@ -1028,6 +1036,9 @@ a:hover {
     min-width: 320px;
   }
   .logo-horizontal {
+    width: 200px;
+  }
+  .contact-title {
     width: 200px;
   }
   body,

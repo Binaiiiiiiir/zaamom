@@ -1,5 +1,4 @@
-@font-face {
-  font-family: gfont;
+@font-face {  font-family: gfont;
   src: url(../webfonts/Colours\ Personal\ Use.ttf);
 }
 * {
@@ -11,6 +10,7 @@ body {
   font-family: Roboto, sans-serif;
   background-color: #0d0d0d;
   color: #ffffff;
+  zoom: 150%;
 }
 .logo-icesco {
   position: absolute;
@@ -18,7 +18,9 @@ body {
   left: 10px;
   z-index: 9;
 }
-
+.gallery {
+  margin: 70px;
+}
 .logo-icesco img {
   width: 100px;
 }
@@ -71,51 +73,111 @@ hr {
   filter: grayscale(0%);
 }
 .card-image.card-1 {
-  background-image: url(images/gallery/image551.jpg);
+  background-image: url(images/gallery/zaamom-t-shirt-coffee.jpg);
 }
 .card-image.card-2 {
-  background-image: url(images/gallery/zaamom-graffiti-camel-2.jpg);
+  background-image: url(images/gallery/IMG_20230114_101349.jpg);
 }
 .card-image.card-3 {
-  background-image: url(images/gallery/zaamom-graffiti-graffiti.png);
+  background-image: url(images/gallery/zaamom-graffiti-graffiti.jpg);
 }
 .card-image.card-4 {
-  background-image: url(images/gallery/zaamom-graffiti.jpeg);
+  background-image: url(images/gallery/graffiti-design.jpg);
 }
 .card-image.card-5 {
-  background-image: url(images/gallery/zaamom-graffiti-the.jpeg);
+  background-image: url(images/gallery/Artist-collectives-Youssef-ZaimiJPG-rotated-py5dtt765b6l3solhtistt0fi13i0heqog29zwt0jk.jpeg);
 }
 .card-image.card-6 {
-  background-image: url(images/gallery/DSC_5486.jpg);
+  background-image: url(images/gallery/1.jpeg);
 }
 .card-image.card-7 {
-  background-image: url(images/gallery/zaamom-atelier-workshop-ecole.jpg);
+  background-image: url(images/gallery/image000060.jpg);
 }
 .card-image.card-8 {
-  background-image: url(images/gallery/zaamom-coaching-formation-graffiti-atelier-workshop-cours-.jpg);
+  background-image: url(images/gallery/zaamom-graffiti-camel-2a.jpg);
 }
 .card-image.card-9 {
-  background-image: url(images/gallery/image00006.jpeg);
+  background-image: url(images/gallery/image00001.jpg);
 }
 .card-image.card-10 {
-  background-image: url(images/gallery/image00002.jpg);
+  background-image: url(images/gallery/image00009.jpg);
 }
 .card-image.card-11 {
-  background-image: url(images/gallery/zaamom-atelier-workshop-team-building.jpg);
+  background-image: url(images/gallery/1629451716548.jpg);
 }
 .card-image.card-12 {
-  background-image: url(images/gallery/zaamom-atelier-workshop-cours-graffiti.jpg);
+  background-image: url(images/gallery/DSC_5488.jpg);
+}
+.card-image.card-13 {
+  background-image: url(images/gallery/2.jpg);
+}
+.card-image.card-14 {
+  background-image: url(images/gallery/3.jpg);
+}
+.card-image.card-15 {
+  background-image: url(images/gallery/20210305_084438.jpg);
+}
+.card-image.card-16 {
+  background-image: url(images/gallery/1629451716548.jpg);
+}
+.card-image.card-17 {
+  background-image: url(images/gallery/DSC_3000.jpg);
+}
+.card-image.card-18 {
+  background-image: url(images/gallery/DSC_5467.jpg);
+}
+.card-image.card-19 {
+  background-image: url(images/gallery/image00005.jpg);
+}
+.card-image.card-20 {
+  background-image: url(images/gallery/IMG_20220105_134813.jpg);
+}
+.card-image.card-21 {
+  background-image: url(images/gallery/zaamom-graffiti-camel-2.jpg);
+}
+.card-image.card-22 {
+  background-image: url(images/gallery/PicsArt_03-04-06.05.19.jpg);
+}
+.card-image.card-23 {
+  background-image: url(images/gallery/GS__2232.jpg);
+}
+.card-image.card-24 {
+  background-image: url(images/gallery/image00007.jpg);
+}
+.card-image.card-25 {
+  background-image: url(images/gallery/image00006.jpg);
+}
+.card-image.card-26 {
+  background-image: url(images/gallery/DSC_5467.jpg);
+}
+.card-image.card-27 {
+  background-image: url(images/gallery/DSC_5485.jpg);
+}
+.card-image.card-28 {
+  background-image: url(images/gallery/DSC_5455.jpg);
 }
 
 @media screen and (max-width: 992px) {
+  body {
+    zoom: 100%;
+  }
   h1 {
     margin-top: 30px;
     font-size: 3rem;
   }
+  .gallery {
+    margin-top: 110px;
+  }
 }
 @media screen and (max-width: 768px) {
+  body {
+    zoom: 100%;
+  }
   h1 {
     margin-top: 100px;
     font-size: 3rem;
+  }
+  .gallery {
+    margin-top: 90px;
   }
 }

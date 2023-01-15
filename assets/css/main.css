@@ -1,5 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,900");
-@import url("fontawesome-all.min.css");
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,900");@import url("fontawesome-all.min.css");
 
 html,
 body,
@@ -1081,12 +1080,12 @@ a:hover {
     background-color: rgba(255, 255, 255, 0.7);
     border-radius: 50%;
     width: 80px;
-    padding: 15px;
+    padding: 20px;
     border: #a5a5a5 1px solid;
   }
 
   #header nav li {
-    margin-right: 20px;
+    /* margin-right: 20px; */
   }
 
   /* BG */
@@ -1158,6 +1157,10 @@ a:hover {
   #bg {
     background-size: 300px auto;
     width: 900px;
+    -moz-animation: bg 15s linear infinite;
+    -webkit-animation: bg 15s linear infinite;
+    -ms-animation: bg 15s linear infinite;
+    animation: bg 15s linear infinite;
   }
 
   /* Header */

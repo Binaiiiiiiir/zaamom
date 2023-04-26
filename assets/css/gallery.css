@@ -22,15 +22,20 @@ body {
   margin: 70px;
 }
 .logo-icesco img {
-  width: 100px;
+  width: 80px;
 }
 h1 {
   font-family: gfont;
   font-size: 7rem;
 }
 .h11 {
+  font-family: roboto;
+  font-size: 1rem;
+  color: rgb(153, 153, 153);
+}
+.h12 {
   font-family: gfont;
-  font-size: 1.5rem;
+  font-size: 2rem;
 }
 h1,
 h2 {
@@ -52,6 +57,8 @@ hr {
   flex-wrap: wrap;
   margin: 1.25rem;
   padding: 0.3125rem;
+  align-items: center;
+  justify-content: center;
   /*border:2px solid #FFFFFF;*/
 }
 .card {
@@ -60,7 +67,9 @@ hr {
   /*border:2px solid #FFFFFF;*/
 }
 .card-image {
-  display: block;
+  /* display: block; */
+  align-items: center;
+  justify-content: center;
   height: 21.875rem;
   background-size: cover;
   box-shadow: 0.3rem 0.4rem 0.4rem rgba(0, 0, 0, 0.4);
@@ -73,89 +82,117 @@ hr {
   filter: grayscale(0%);
 }
 .card-image.card-1 {
-  background-image: url(images/gallery/zaamom-t-shirt-coffee.jpg);
+  background-image: url(images/gallery/Zaamom-Lartiste-zerzour-1.jpg);
 }
 .card-image.card-2 {
-  background-image: url(images/gallery/IMG_20230114_101349.jpg);
+  background-image: url(images/gallery/Zaamom-Lartiste-zerzour-3.jpg);
 }
 .card-image.card-3 {
-  background-image: url(images/gallery/zaamom-graffiti-graffiti.jpg);
+  background-image: url(images/gallery/Zaamom-Lartiste-zerzour.jpg);
 }
 .card-image.card-4 {
-  background-image: url(images/gallery/graffiti-design.jpg);
+  background-image: url(images/gallery/Zaamom-lmoutchou-mobydick-badexample.jpg);
 }
 .card-image.card-5 {
-  background-image: url(images/gallery/Artist-collectives-Youssef-ZaimiJPG-rotated-py5dtt765b6l3solhtistt0fi13i0heqog29zwt0jk.jpeg);
+  background-image: url(images/gallery/Zaamom-lmoutchou-mobydick-badexample-3.jpg);
 }
 .card-image.card-6 {
-  background-image: url(images/gallery/1.jpeg);
+  background-image: url(images/gallery/Zaamom-lmoutchou-mobydick-badexample-2.jpg);
 }
 .card-image.card-7 {
-  background-image: url(images/gallery/image000060.jpg);
+  background-image: url(images/gallery/Artwork-street-art/1.jpg);
 }
 .card-image.card-8 {
-  background-image: url(images/gallery/zaamom-graffiti-camel-2a.jpg);
+  background-image: url(images/gallery/Artwork-street-art/2.jpg);
 }
 .card-image.card-9 {
-  background-image: url(images/gallery/image00001.jpg);
+  background-image: url(images/gallery/Artwork-street-art/3.jpg);
 }
 .card-image.card-10 {
-  background-image: url(images/gallery/image00009.jpg);
+  background-image: url(images/gallery/Artwork-street-art/4.jpg);
+}
+.card-image.card-31 {
+  background-image: url(images/gallery/Artwork-street-art/5.jpeg);
+}
+.card-image.card-32 {
+  background-image: url(images/gallery/Artwork-street-art/6.jpg);
+}
+.card-image.card-33 {
+  background-image: url(images/gallery/Artwork-street-art/7.jpg);
+}
+.card-image.card-34 {
+  background-image: url(images/gallery/Artwork-street-art/8.jpeg);
+}
+.card-image.card-35 {
+  background-image: url(images/gallery/Artwork-street-art/9.jpg);
+}
+.card-image.card-36 {
+  background-image: url(images/gallery/Artwork-street-art/10.jpg);
 }
 .card-image.card-11 {
-  background-image: url(images/gallery/1629451716548.jpg);
+  background-image: url(images/gallery/Zaamom-walls-artwork2.jpg);
 }
 .card-image.card-12 {
-  background-image: url(images/gallery/DSC_5488.jpg);
+  background-image: url(images/gallery/mockups/Zaamom-mockup-1-min.jpg);
 }
 .card-image.card-13 {
-  background-image: url(images/gallery/2.jpg);
+  background-image: url(images/gallery/mockups/Zaamom-mockup-2-min.jpg);
 }
 .card-image.card-14 {
-  background-image: url(images/gallery/3.jpg);
+  background-image: url(images/gallery/mockups/Zaamom-mockup-3-min.jpg);
 }
 .card-image.card-15 {
-  background-image: url(images/gallery/20210305_084438.jpg);
+  background-image: url(images/gallery/mockups/Zaamom-mockup-4-min.jpg);
 }
 .card-image.card-16 {
-  background-image: url(images/gallery/1629451716548.jpg);
+  background-image: url(images/gallery/mockups/Zaamom-mockup-5-min.jpg);
 }
 .card-image.card-17 {
-  background-image: url(images/gallery/DSC_3000.jpg);
+  background-image: url(images/gallery/mockups/Zaamom-mockup-6-min.jpg);
 }
 .card-image.card-18 {
-  background-image: url(images/gallery/DSC_5467.jpg);
+  background-image: url(images/gallery/mockups/Zaamom-mockup-7-min.jpg);
 }
 .card-image.card-19 {
-  background-image: url(images/gallery/image00005.jpg);
+  background-image: url(images/gallery/mockups/Zaamom-mockup-8-min.jpg);
 }
 .card-image.card-20 {
-  background-image: url(images/gallery/IMG_20220105_134813.jpg);
+  background-image: url(images/gallery/mockups/Zaamom-mockup-9-min.jpg);
 }
 .card-image.card-21 {
-  background-image: url(images/gallery/zaamom-graffiti-camel-2.jpg);
+  background-image: url(images/gallery/caricature/1.jpeg);
 }
 .card-image.card-22 {
-  background-image: url(images/gallery/PicsArt_03-04-06.05.19.jpg);
+  background-image: url(images/gallery/caricature/2.jpg);
 }
 .card-image.card-23 {
-  background-image: url(images/gallery/GS__2232.jpg);
+  background-image: url(images/gallery/caricature/3.jpg);
 }
 .card-image.card-24 {
-  background-image: url(images/gallery/image00007.jpg);
+  background-image: url(images/gallery/caricature/4.jpg);
 }
 .card-image.card-25 {
-  background-image: url(images/gallery/image00006.jpg);
+  background-image: url(images/gallery/caricature/6.jpg);
 }
 .card-image.card-26 {
-  background-image: url(images/gallery/DSC_5467.jpg);
+  background-image: url(images/gallery/caricature/7.jpg);
 }
 .card-image.card-27 {
-  background-image: url(images/gallery/DSC_5485.jpg);
+  background-image: url(images/gallery/caricature/8.jpg);
+}
+.card-image.card-37 {
+  background-image: url(images/gallery/caricature/9.jpg);
 }
 .card-image.card-28 {
-  background-image: url(images/gallery/DSC_5455.jpg);
+  background-image: url(images/gallery/lbesswjhek/1.jpg);
 }
+.card-image.card-29 {
+  background-image: url(images/gallery/lbesswjhek/2.jpg);
+}
+.card-image.card-30 {
+  background-image: url(images/gallery/lbesswjhek/3.jpg);
+}
+
 
 @media screen and (max-width: 992px) {
   body {

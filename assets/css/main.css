@@ -163,7 +163,22 @@ input::-moz-focus-inner {
   border: 0;
   padding: 0;
 }
-
+.hamburger {
+  display: none;
+  font-size: 32px;
+  background-color: #fff;
+  border: transparent;
+  margin: 10px 0 0 15px;
+  cursor: pointer;
+}
+nav.show {
+  display: block;
+}
+.navbar-collapse{
+  width: 300px;
+  background-color: red;
+  z-index: 9999;
+}
 input,
 select,
 textarea {
@@ -172,7 +187,9 @@ textarea {
   -ms-appearance: none;
   appearance: none;
 }
-
+.burger{
+  width: 80px;
+}
 /* Basic */
 
 html {
@@ -1072,7 +1089,16 @@ a:hover {
   textarea {
     font-size: 11pt;
   }
-
+  nav {
+    display: none;
+  }
+  
+  /* Show the hamburger menu on small screens */
+  .hamburger {
+    display: block;
+    position: absolute;
+    top: 0;
+  }
   .menu-icon {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     -webkit-touch-callout: none;
@@ -1084,6 +1110,8 @@ a:hover {
     padding: 20px;
     border: #a5a5a5 1px solid;
   }
+
+
 
   /* BG */
 

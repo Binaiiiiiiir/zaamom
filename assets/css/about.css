@@ -1,7 +1,16 @@
-* {  margin: 0;
+* {
+  margin: 0;
 }
 
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap");
+
+@font-face {
+  font-family: "DonGraffiti";
+  src: url("../webfonts/DonGraffiti.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 
 .container {
   display: flex;
@@ -11,25 +20,98 @@
   justify-content: space-between;
 }
 
+.hamburger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid #a5a5a5;
+  border-radius: 50%;
+  cursor: pointer;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 20;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+.hamburger:focus-visible {
+  outline: 2px solid #1c1c1c;
+  outline-offset: 3px;
+}
+.burger {
+  width: 40px;
+}
+.menu-panel {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.75rem;
+  padding: 3rem 1.5rem;
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(22px) saturate(140%);
+  -webkit-backdrop-filter: blur(22px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(1.02);
+  transition: opacity 0.3s ease, transform 0.35s ease;
+  z-index: 15;
+}
+.menu-panel.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1);
+}
+.menu-panel .menu-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+}
+.menu-panel .menu-link img {
+  width: clamp(140px, 24vw, 260px);
+  max-width: 100%;
+  filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.25));
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+.menu-panel .menu-link:hover img,
+.menu-panel .menu-link:focus-visible img {
+  transform: translateY(-4px) scale(1.03);
+  filter: drop-shadow(0 14px 30px rgba(0, 0, 0, 0.35));
+}
+
 .left-div {
   background-color: #fff;
   width: 50%;
-  /* padding: 10px; */
-  text-align: center;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  align-items: stretch;
+}
+
+.left-div img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .title-left {
-  color: rgb(35, 184, 184);
-  font-size: 6rem;
-  font-family: gfont;
-  /* margin-top: 40px; */
+  color: #111;
+  font-size: clamp(3rem, 8vw, 7rem);
   text-align: center;
   justify-content: center;
   align-items: center;
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.about-heading {
+  font-family: "DonGraffiti", cursive;
+  letter-spacing: 0.4rem;
+  text-transform: uppercase;
 }
 .text-left {
   margin-top: 40px;
@@ -65,38 +147,62 @@
 .right-div {
   width: 50%;
   text-align: center;
-}
-img {
-  width: 100%;
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 0;
+  gap: 1.5rem;
 }
 /* Slider */
 
 .slider {
-  width: 100%;
-  height: 20vh;
+  width: 80%;
+  min-height: 160px;
   position: relative;
   overflow: hidden;
   margin-top: 20px;
 }
 
+.carousel-track {
+  display: flex;
+  width: max-content;
+  gap: 1.5rem;
+  animation: partners-marquee 180s linear infinite;
+}
+
+.carousel-track .carousel-item {
+  width: 200px;
+}
+
 .carousel-container {
   width: 100%;
-  height: 100%;
-  display: flex;
-  transition: transform 0.5s ease;
+  overflow: hidden;
 }
 
 .carousel-item {
-  width: 100%;
-  height: 100%;
-  flex-shrink: 0;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1rem;
 }
 
 .carousel-item img {
   width: 100%;
-  height: 100%;
+  height: auto;
+  max-height: 100px;
   object-fit: contain;
+  filter: grayscale(0.2);
+}
+
+@keyframes partners-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 
@@ -107,29 +213,37 @@ img {
 
   .left-div {
     width: 100%;
-    padding: 0px;
-  }
-  img {
-    height: 80vh;
+    height: 60vh;
   }
   .right-div {
     width: 100%;
+    padding: 2rem 0;
   }
 
   .title-left {
-
-     margin-top: 40px; 
-
-  }
-  .logo-icesco {
-   left: auto;
-   right: 10px;
-  }
-  .logo-icesco img {
-    width: 100px;
+     margin-top: 40px;
   }
   .slider {
    
     margin-top: auto;
+  }
+  .carousel-item {
+    width: 50%;
+  }
+  .menu-panel .menu-link img {
+    width: clamp(160px, 48vw, 240px);
+  }
+}
+
+@media (max-width: 600px) {
+  .carousel-item {
+    width: 100%;
+  }
+}
+
+@media (max-width: 736px) {
+  .menu-panel {
+    padding: 2.5rem 1rem;
+    gap: 1.2rem;
   }
 }

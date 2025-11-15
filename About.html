@@ -11,26 +11,88 @@
     />
 
     <title>Zaamom | About - Moroccan street artist</title>
+    <script type="text/javascript">
+      function initMenu() {
+        var hamburger = document.querySelector(".hamburger");
+        var nav = document.querySelector("#primary-navigation");
+        if (!hamburger || !nav) return;
+
+        hamburger.addEventListener("click", function () {
+          var isOpen = nav.classList.toggle("show");
+          hamburger.setAttribute("aria-expanded", isOpen);
+          nav.setAttribute("aria-hidden", (!isOpen).toString());
+        });
+      }
+    </script>
   </head>
 
-  <body>
+  <body class="has-offcanvas">
     <div class="container">
       <div class="logo-icesco">
         <a href="index.html"
           ><img src="assets/css/images/logo-zaamom-horizontal.png" alt=""
         /></a>
       </div>
-      <div class="right-div">
-        <img src="assets/css/images/zaamom-about.jpg" />
-      </div>
+      <button
+        class="hamburger"
+        aria-expanded="false"
+        aria-controls="primary-navigation"
+        aria-label="Toggle primary navigation"
+      >
+        <img
+          class="burger"
+          src="assets/css/images/icons/menu-burger.png"
+          alt="Open menu"
+        />
+      </button>
+
+      <nav id="primary-navigation" class="menu-panel" aria-hidden="true">
+        <a class="menu-link" href="About.html" title="About" aria-label="About">
+          <img src="assets/css/images/about.png" alt="" />
+        </a>
+        <a
+          class="menu-link"
+          href="gallery.html"
+          title="Gallery"
+          aria-label="Gallery"
+        >
+          <img src="assets/css/images/gallery.png" alt="" />
+        </a>
+        <a
+          class="menu-link"
+          href="contact.html"
+          title="Contact"
+          aria-label="Contact"
+        >
+          <img src="assets/css/images/contact.png" alt="" />
+        </a>
+        <a class="menu-link" href="store.html" title="Store" aria-label="Store">
+          <img src="assets/css/images/store.png" alt="" />
+        </a>
+        <a
+          class="menu-link"
+          href="services.html"
+          title="Services"
+          aria-label="Services"
+        >
+          <img src="assets/css/images/services.png" alt="" />
+        </a>
+      </nav>
       <div class="left-div">
+        <img
+          id="about-hero"
+          src="assets/css/images/Photos/ABOUT/zaamom-about1.jpg"
+          alt="Zaamom portrait"
+        />
+      </div>
+      <div class="right-div">
         <div class="title-left">
-          <img class="about-title" src="assets/css/images/about.png" alt="" />
+          <span class="about-heading">About</span>
         </div>
         <div class="text-left">
           <div>
             <p>
-              Zaamom, born in September 1987 in Morocco, was greatly inspired by
+              Zaamom, born in Morocco, was greatly inspired by
               art from a young age. He grew up in the Ocean neighborhood of
               Rabat. Seawater became ink for his drawings and waves, a source of
               inspiration for his work as well as a playground for his favorite
@@ -53,38 +115,107 @@
        
         <div class="slider">
           <div class="carousel-container">
-            <div class="carousel-item"><img src="assets/css/images/partners/leoni.png"></div>
-            <div class="carousel-item"><img src="assets/css/images/partners/aria.png"></div>
-            <div class="carousel-item"><img src="assets/css/images/partners/artcom.png"></div>
-            <div class="carousel-item"><img src="assets/css/images/partners/Bontaz copy.png"></div>
-            <div class="carousel-item"><img src="assets/css/images/partners/forever.png"></div>
-            <div class="carousel-item"><img src="assets/css/images/partners/institut.png"></div>
-            <div class="carousel-item"><img src="assets/css/images/partners/moojood.png"></div>
-            <div class="carousel-item"><img src="assets/css/images/partners/safisurf.png"></div>
-            <div class="carousel-item"><img src="assets/css/images/partners/taghazout.png"></div>
+            <div class="carousel-track"></div>
           </div>
-          
-         </div>
+        </div>
         
       </div>
  
     </div>
-     <script>
-      const carouselContainer = document.querySelector('.carousel-container');
-const carouselItems = document.querySelectorAll('.carousel-item');
-const carouselItemWidth = carouselItems[0].clientWidth;
-let currentItemIndex = 0;
+    <script>
+const carouselTrack = document.querySelector('.carousel-track');
+const partnerLogos = [
+  '1701183346764.jpeg',
+  '2560px-Leoni.svg copy.png',
+  '640px-Logo_hps_0 copy.png',
+  'aria.png',
+  'artcom.png',
+  'Bontaz copy.png',
+  'declic-red copy.png',
+  'forever.png',
+  'HITRADIOMAROC copy.png',
+  'institut.png',
+  'logo aloha vibes png.png',
+  'logo ARTILILI.jpg',
+  'logo copy.png',
+  'Logo-insta.jpg',
+  'logoicesco copy.png',
+  'logoMIA.png',
+  'moojood.png',
+  'pullman-hotels-and-resorts-vector-logo.png',
+  'taghazout.png',
+  'Untitled-1.png',
+  'Untitled-10.png',
+  'Untitled-11.png',
+  'Untitled-12.png',
+  'Untitled-13.png',
+  'Untitled-14.png',
+  'Untitled-15.png',
+  'Untitled-16.png',
+  'Untitled-17.png',
+  'Untitled-18.png',
+  'Untitled-19.png',
+  'Untitled-2.png',
+  'Untitled-3.png',
+  'Untitled-4.jpg',
+  'Untitled-4.png',
+  'Untitled-5.png',
+  'Untitled-6.png',
+  'Untitled-7.png',
+  'Untitled-8.png',
+  'Untitled-9.png'
+];
 
-function advanceCarousel() {
-  currentItemIndex++;
-  if (currentItemIndex >= carouselItems.length) {
-    currentItemIndex = 0;
-  }
-  const offset = -currentItemIndex * carouselItemWidth;
-  carouselContainer.style.transform = `translateX(${offset}px)`;
+function buildPartnerTrack() {
+  if (!carouselTrack) return;
+  carouselTrack.innerHTML = '';
+  const createItems = () => {
+    partnerLogos.forEach((fileName) => {
+      const item = document.createElement('div');
+      item.className = 'carousel-item';
+      const img = document.createElement('img');
+      img.src = `assets/css/images/partners/${fileName}`;
+      img.alt = fileName;
+      item.appendChild(img);
+      carouselTrack.appendChild(item);
+    });
+  };
+  createItems();
+  createItems(); // duplicate for seamless loop
 }
 
-setInterval(advanceCarousel, 1700);
+buildPartnerTrack();
+
+const aboutHero = document.querySelector('#about-hero');
+const aboutHeading = document.querySelector('.about-heading');
+const totalAboutImages = 13;
+const headingColors = {
+  1: '#456186',
+  2: '#4F7286',
+  3: '#62AA1A',
+  4: '#008F72',
+  5: '#DD8173',
+  6: '#E8A85F',
+  8: '#62AA1A',
+  9: '#D68D00',
+  10: '#074157',
+  11: '#828282',
+  12: '#6E6788'
+};
+
+function setRandomAboutImage() {
+  if (!aboutHero) return;
+  const randomIndex = Math.floor(Math.random() * totalAboutImages) + 1;
+  aboutHero.src = `assets/css/images/Photos/ABOUT/zaamom-about${randomIndex}.jpg`;
+  if (aboutHeading && headingColors[randomIndex]) {
+    aboutHeading.style.color = headingColors[randomIndex];
+  } else if (aboutHeading) {
+    aboutHeading.style.color = '#111';
+  }
+}
+
+setRandomAboutImage();
+initMenu();
      </script>       
   </body>
 </html>

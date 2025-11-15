@@ -19,7 +19,7 @@
     </noscript>
 
     <script type="text/javascript">
-      var totalCount = 4;
+      var totalCount = 25;
       function ChangeIt() {
         var num = Math.ceil(Math.random() * totalCount);
         var imgbg =
@@ -27,11 +27,19 @@
           num +
           '.png") bottom left';
         document.querySelector("#bg").style.background = imgbg;
-        // console.log(imgbg);
         document.querySelector("#bg").style.backgroundRepeat = "repeat-x"; // Background no-repeat
-        document.querySelector('.hamburger').addEventListener('click', function() {
-  document.querySelector('nav').classList.toggle('show');
-});
+      }
+
+      function initMenu() {
+        var hamburger = document.querySelector(".hamburger");
+        var nav = document.querySelector("#primary-navigation");
+        if (!hamburger || !nav) return;
+
+        hamburger.addEventListener("click", function () {
+          var isOpen = nav.classList.toggle("show");
+          hamburger.setAttribute("aria-expanded", isOpen);
+          nav.setAttribute("aria-hidden", (!isOpen).toString());
+        });
       }
     </script>
   </head>
@@ -48,9 +56,62 @@
      
       <div id="main">
         <!-- <button class="hamburger">&#9776;</button> -->
-        <button class="hamburger"><img class="burger" src="assets/css/images/icons/menu-burger.png"/></button>
-       
-       
+        <button
+          class="hamburger"
+          aria-expanded="false"
+          aria-controls="primary-navigation"
+          aria-label="Toggle primary navigation"
+        >
+          <img
+            class="burger"
+            src="assets/css/images/icons/menu-burger.png"
+            alt="Open menu"
+          />
+        </button>
+
+        <nav id="primary-navigation" class="menu-panel" aria-hidden="true">
+          <a
+            class="menu-link"
+            href="About.html"
+            title="About"
+            aria-label="About"
+          >
+            <img src="assets/css/images/about.png" alt="" />
+          </a>
+          <a
+            class="menu-link"
+            href="gallery.html"
+            title="Gallery"
+            aria-label="Gallery"
+          >
+            <img src="assets/css/images/gallery.png" alt="" />
+          </a>
+          <a
+            class="menu-link"
+            href="contact.html"
+            title="Contact"
+            aria-label="Contact"
+          >
+            <img src="assets/css/images/contact.png" alt="" />
+          </a>
+          <a
+            class="menu-link"
+            href="store.html"
+            title="Store"
+            aria-label="Store"
+          >
+            <img src="assets/css/images/store.png" alt="" />
+          </a>
+          <a
+            class="menu-link"
+            href="services.html"
+            title="Services"
+            aria-label="Services"
+          >
+            <img src="assets/css/images/services.png" alt="" />
+          </a>
+        </nav>
+
         <!-- Header -->
         <header id="header">
           <img
@@ -59,57 +120,10 @@
             alt=""
           />
           <p>
-            Street artist &nbsp;&bull;&nbsp; Designer &nbsp;&bull;&nbsp;
+            Designer &nbsp;&bull;&nbsp; Street artist &nbsp;&bull;&nbsp;
             Illustrator
           </p>
          
-          <nav>
-            <ul>
-              <li>
-                <a class="menu-link" href="About.html" title="About">
-                  <img
-                    class="menu-icon"
-                    t
-                    src="assets/css/images/icons/about.png"
-                    alt="About"
-                  />
-                </a>
-              </li>
-              <li>
-                <a href="gallery.html" title="Gallery"
-                  ><img
-                    class="menu-icon"
-                    src="assets/css/images/icons/gallery.png"
-                    alt=""
-                  />
-                </a>
-              </li>
-              <li>
-                <a href="contact.html" title="Contact"
-                  ><img
-                    class="menu-icon"
-                    src="assets/css/images/icons/contact.png"
-                    alt=""
-                /></a>
-              </li>
-              <li>
-                <a href="assets/doc/Zaamom-Portfolio.pdf" target="_blank" title="Portfolio"
-                  ><img
-                    class="menu-icon"
-                    src="assets/css/images/icons/portfolio.png"
-                    alt=""
-                /></a>
-              </li>
-              <li>
-                <a href="https://zaamom.youcan.shop" target="_blank"  title="Shop"
-                  ><img
-                    class="menu-icon"
-                    src="assets/css/images/icons/shop.png"
-                    alt=""
-                /></a>
-              </li>
-            </ul>
-          </nav>
         </header>
 
         <!-- Footer -->
@@ -130,6 +144,7 @@
       window.onorientationchange = function () {
         document.body.scrollTop = 0;
       };
+      initMenu();
       ChangeIt();
     </script>
   </body>

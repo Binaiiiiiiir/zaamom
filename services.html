@@ -1,0 +1,386 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="assets/css/store.css" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="assets/css/images/icons/favicon.ico"
+    />
+
+    <title>Zaamom | Services</title>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+      // Initialize EmailJS when script loads
+      (function() {
+        if (typeof emailjs !== 'undefined') {
+          emailjs.init("Qi6B3pWYB6Ysn-vCi");
+        } else {
+          window.addEventListener('load', function() {
+            if (typeof emailjs !== 'undefined') {
+              emailjs.init("Qi6B3pWYB6Ysn-vCi");
+            }
+          });
+        }
+      })();
+      
+      function initMenu() {
+        var hamburger = document.querySelector(".hamburger");
+        var nav = document.querySelector("#primary-navigation");
+        if (!hamburger || !nav) return;
+
+        hamburger.addEventListener("click", function () {
+          var isOpen = nav.classList.toggle("show");
+          hamburger.setAttribute("aria-expanded", isOpen);
+          nav.setAttribute("aria-hidden", (!isOpen).toString());
+        });
+      }
+    </script>
+  </head>
+
+  <body class="has-offcanvas">
+    <a href="index.html">
+      <div class="logo-icesco">
+        <img src="assets/css/images/logo-zaamom-horizontal.png" alt="" />
+      </div>
+    </a>
+    <button
+      class="hamburger"
+      aria-expanded="false"
+      aria-controls="primary-navigation"
+      aria-label="Toggle primary navigation"
+    >
+      <img
+        class="burger"
+        src="assets/css/images/icons/menu-burger.png"
+        alt="Open menu"
+      />
+    </button>
+
+    <nav id="primary-navigation" class="menu-panel" aria-hidden="true">
+      <a class="menu-link" href="About.html" title="About" aria-label="About">
+        <img src="assets/css/images/about.png" alt="" />
+      </a>
+      <a
+        class="menu-link"
+        href="gallery.html"
+        title="Gallery"
+        aria-label="Gallery"
+      >
+        <img src="assets/css/images/gallery.png" alt="" />
+      </a>
+      <a
+        class="menu-link"
+        href="contact.html"
+        title="Contact"
+        aria-label="Contact"
+      >
+        <img src="assets/css/images/contact.png" alt="" />
+      </a>
+      <a class="menu-link" href="store.html" title="Store" aria-label="Store">
+        <img src="assets/css/images/store.png" alt="" />
+      </a>
+      <a
+        class="menu-link"
+        href="services.html"
+        title="Services"
+        aria-label="Services"
+      >
+        <img src="assets/css/images/services.png" alt="" />
+      </a>
+    </nav>
+
+    <main class="gallery-hero">
+      <img
+        class="gallery-wordmark"
+        src="assets/css/images/services.png"
+        alt="Services"
+      />
+      <p class="gallery-intro">
+        A snapshot of what keeps Zaamom
+        universe in motion.
+      </p>
+    </main>
+
+
+    <div
+      id="order-modal"
+      class="polaroid-modal"
+      aria-hidden="true"
+      role="dialog"
+    >
+      <div class="modal-overlay" data-close-modal></div>
+      <div class="modal-content form-modal">
+        <button class="modal-close" aria-label="Close form" data-close-modal>
+          &times;
+        </button>
+        <form id="order-form" class="order-form">
+          <h2 id="form-title" class="form-title">Order Form</h2>
+          
+          <div class="form-group">
+            <label for="customer-name">Name *</label>
+            <input type="text" id="customer-name" name="name" required />
+          </div>
+
+          <div class="form-group">
+            <label for="customer-email">Email *</label>
+            <input type="email" id="customer-email" name="email" required />
+          </div>
+
+          <div class="form-group">
+            <label for="customer-phone">Phone *</label>
+            <input type="tel" id="customer-phone" name="phone" required />
+          </div>
+
+          <div id="dynamic-fields"></div>
+
+          <div class="form-group">
+            <label for="customer-message">Message</label>
+            <textarea
+              id="customer-message"
+              name="message"
+              rows="4"
+              placeholder="Tell us more about your order..."
+            ></textarea>
+          </div>
+
+          <button type="submit" class="submit-btn">Send Order</button>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      const modal = document.getElementById("order-modal");
+      const form = document.getElementById("order-form");
+      const formTitle = document.getElementById("form-title");
+      const dynamicFields = document.getElementById("dynamic-fields");
+      let currentCategory = null;
+
+      const categoryTitles = {
+        boards: "Order Boards",
+        outfit: "Order Outfit & Accessories",
+        canvas: "Order Canvas",
+      };
+
+      const boardSizes = {
+        surf: ["5'0\"", "5'6\"", "6'0\"", "6'6\"", "7'0\"", "7'6\"", "8'0\"", "9'0\""],
+        "body board": ["36\"", "38\"", "40\"", "42\""],
+        skateboard: ["7.5\"", "7.75\"", "8.0\"", "8.25\"", "8.5\""],
+      };
+
+      const outfitSizes = {
+        tshirt: ["XS", "S", "M", "L", "XL", "XXL"],
+        hoodies: ["S", "M", "L", "XL", "XXL"],
+        bag: ["Small", "Medium", "Large"],
+        shoes: ["36", "37", "38", "39", "40", "41", "42", "43", "44", "45"],
+      };
+
+      const canvasSizes = [
+        "20x30 cm",
+        "30x40 cm",
+        "40x50 cm",
+        "50x70 cm",
+        "60x80 cm",
+        "70x100 cm",
+        "80x120 cm",
+        "100x150 cm",
+      ];
+
+      function generateDynamicFields(category) {
+        dynamicFields.innerHTML = "";
+
+        if (category === "boards") {
+          const typeGroup = document.createElement("div");
+          typeGroup.className = "form-group";
+          typeGroup.innerHTML = `
+            <label for="board-type">Board Type *</label>
+            <select id="board-type" name="boardType" required>
+              <option value="">Select board type</option>
+              <option value="surf">Surf</option>
+              <option value="body board">Body Board</option>
+              <option value="skateboard">Skateboard</option>
+            </select>
+          `;
+          dynamicFields.appendChild(typeGroup);
+
+          const sizeGroup = document.createElement("div");
+          sizeGroup.className = "form-group";
+          sizeGroup.innerHTML = `
+            <label for="board-size">Board Size *</label>
+            <select id="board-size" name="boardSize" required disabled>
+              <option value="">Select board type first</option>
+            </select>
+          `;
+          dynamicFields.appendChild(sizeGroup);
+
+          document.getElementById("board-type").addEventListener("change", (e) => {
+            const boardType = e.target.value;
+            const sizeSelect = document.getElementById("board-size");
+            sizeSelect.innerHTML = '<option value="">Select size</option>';
+            if (boardType && boardSizes[boardType]) {
+              boardSizes[boardType].forEach((size) => {
+                const option = document.createElement("option");
+                option.value = size;
+                option.textContent = size;
+                sizeSelect.appendChild(option);
+              });
+              sizeSelect.disabled = false;
+            } else {
+              sizeSelect.disabled = true;
+            }
+          });
+        } else if (category === "outfit") {
+          const outfitGroup = document.createElement("div");
+          outfitGroup.className = "form-group";
+          outfitGroup.innerHTML = `
+            <label for="outfit-type">Outfit *</label>
+            <select id="outfit-type" name="outfitType" required>
+              <option value="">Select outfit</option>
+              <option value="tshirt">T-Shirt</option>
+              <option value="hoodies">Hoodies</option>
+              <option value="bag">Bag</option>
+              <option value="shoes">Shoes</option>
+            </select>
+          `;
+          dynamicFields.appendChild(outfitGroup);
+
+          const sizeGroup = document.createElement("div");
+          sizeGroup.className = "form-group";
+          sizeGroup.innerHTML = `
+            <label for="outfit-size">Size *</label>
+            <select id="outfit-size" name="outfitSize" required disabled>
+              <option value="">Select outfit first</option>
+            </select>
+          `;
+          dynamicFields.appendChild(sizeGroup);
+
+          document.getElementById("outfit-type").addEventListener("change", (e) => {
+            const outfitType = e.target.value;
+            const sizeSelect = document.getElementById("outfit-size");
+            sizeSelect.innerHTML = '<option value="">Select size</option>';
+            if (outfitType && outfitSizes[outfitType]) {
+              outfitSizes[outfitType].forEach((size) => {
+                const option = document.createElement("option");
+                option.value = size;
+                option.textContent = size;
+                sizeSelect.appendChild(option);
+              });
+              sizeSelect.disabled = false;
+            } else {
+              sizeSelect.disabled = true;
+            }
+          });
+        } else if (category === "canvas") {
+          const sizeGroup = document.createElement("div");
+          sizeGroup.className = "form-group";
+          sizeGroup.innerHTML = `
+            <label for="canvas-size">Canvas Size *</label>
+            <select id="canvas-size" name="canvasSize" required>
+              <option value="">Select canvas size</option>
+              ${canvasSizes
+                .map((size) => `<option value="${size}">${size}</option>`)
+                .join("")}
+            </select>
+          `;
+          dynamicFields.appendChild(sizeGroup);
+        }
+      }
+
+      function openOrderForm(category) {
+        currentCategory = category;
+        formTitle.textContent = categoryTitles[category] || "Order Form";
+        generateDynamicFields(category);
+        form.reset();
+        modal.classList.add("show");
+        modal.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeModal() {
+        modal.classList.remove("show");
+        modal.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+        currentCategory = null;
+        form.reset();
+      }
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const submitBtn = form.querySelector(".submit-btn");
+        const originalText = submitBtn.textContent;
+        
+        // Disable button and show loading
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Sending...";
+
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData);
+        
+        // Prepare EmailJS template parameters
+        const templateParams = {
+          category: currentCategory === "boards" ? "Boards" : 
+                   currentCategory === "outfit" ? "Outfit & Accessories" : "Canvas",
+          customer_name: data.name || "",
+          customer_email: data.email || "",
+          customer_phone: data.phone || "",
+          board_type: data.boardType || "",
+          board_size: data.boardSize || "",
+          outfit_type: data.outfitType || "",
+          outfit_size: data.outfitSize || "",
+          canvas_size: data.canvasSize || "",
+          message: data.message || "",
+        };
+
+        // Ensure EmailJS is initialized
+        if (typeof emailjs === 'undefined') {
+          alert("EmailJS is not loaded. Please refresh the page and try again.");
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalText;
+          return;
+        }
+
+        // Initialize EmailJS if not already done
+        try {
+          emailjs.init("Qi6B3pWYB6Ysn-vCi");
+        } catch (e) {
+          // Already initialized, continue
+        }
+
+        // Send email using EmailJS
+        emailjs
+          .send("service_3lv5cqe", "template_xd29eb7", templateParams)
+          .then(
+            function (response) {
+              console.log("EmailJS success:", response);
+              alert("Thank you! Your order has been sent successfully.");
+              closeModal();
+            },
+            function (error) {
+              console.error("EmailJS error details:", error);
+              console.error("Error status:", error.status);
+              console.error("Error text:", error.text);
+              alert("Sorry, there was an error sending your order. Error: " + (error.text || error.status || "Unknown error") + ". Please check the console for details.");
+            }
+          )
+          .finally(() => {
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
+          });
+      });
+
+
+      modal
+        .querySelectorAll("[data-close-modal]")
+        .forEach((el) => el.addEventListener("click", closeModal));
+
+      document.addEventListener("keydown", (evt) => {
+        if (!modal.classList.contains("show")) return;
+        if (evt.key === "Escape") closeModal();
+      });
+
+      initMenu();
+    </script>
+  </body>
+</html>

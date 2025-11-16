@@ -11,19 +11,77 @@
     />
 
     <title>Zaamom | Gallery</title>
+    <script type="text/javascript">
+      function initMenu() {
+        var hamburger = document.querySelector(".hamburger");
+        var nav = document.querySelector("#primary-navigation");
+        if (!hamburger || !nav) return;
+
+        hamburger.addEventListener("click", function () {
+          var isOpen = nav.classList.toggle("show");
+          hamburger.setAttribute("aria-expanded", isOpen);
+          nav.setAttribute("aria-hidden", (!isOpen).toString());
+        });
+      }
+    </script>
   </head>
 
-  <body>
+  <body class="has-offcanvas">
     <a href="index.html">
       <div class="logo-icesco">
-        <img src="assets/css/images/logo website zaamom white.png" alt="" />
+        <img src="assets/css/images/logo-zaamom-horizontal-white.png" alt="" />
       </div>
     </a>
+    <button
+      class="hamburger"
+      aria-expanded="false"
+      aria-controls="primary-navigation"
+      aria-label="Toggle primary navigation"
+    >
+      <img
+        class="burger"
+        src="assets/css/images/icons/menu-burger.png"
+        alt="Open menu"
+      />
+    </button>
+
+    <nav id="primary-navigation" class="menu-panel" aria-hidden="true">
+      <a class="menu-link" href="About.html" title="About" aria-label="About">
+        <img src="assets/css/images/about.png" alt="" />
+      </a>
+      <a
+        class="menu-link"
+        href="gallery.html"
+        title="Gallery"
+        aria-label="Gallery"
+      >
+        <img src="assets/css/images/gallery.png" alt="" />
+      </a>
+      <a
+        class="menu-link"
+        href="contact.html"
+        title="Contact"
+        aria-label="Contact"
+      >
+        <img src="assets/css/images/contact.png" alt="" />
+      </a>
+      <a class="menu-link" href="store.html" title="Store" aria-label="Store">
+        <img src="assets/css/images/store.png" alt="" />
+      </a>
+      <a
+        class="menu-link"
+        href="services.html"
+        title="Services"
+        aria-label="Services"
+      >
+        <img src="assets/css/images/services.png" alt="" />
+      </a>
+    </nav>
 
     <main class="gallery-hero">
       <img
         class="gallery-wordmark"
-        src="assets/css/images/gallery.png"
+        src="assets/css/images/gallerywhite.png"
         alt="Gallery"
       />
       <p class="gallery-intro">
@@ -33,7 +91,11 @@
     </main>
 
     <section class="polaroid-wall">
-      <figure class="polaroid tilt-right">
+      <figure
+        class="polaroid tilt-right"
+        data-gallery="exhibitions"
+        tabindex="0"
+      >
         <div class="polaroid-img">
           <span class="gloss"></span>
           <img
@@ -44,7 +106,11 @@
         <figcaption>Exhibitions</figcaption>
       </figure>
 
-      <figure class="polaroid tilt-left">
+      <figure
+        class="polaroid tilt-left"
+        data-gallery="streetart"
+        tabindex="0"
+      >
         <div class="polaroid-img">
           <span class="gloss"></span>
           <img
@@ -55,7 +121,11 @@
         <figcaption>Street Art</figcaption>
       </figure>
 
-      <figure class="polaroid tilt-right">
+      <figure
+        class="polaroid tilt-right"
+        data-gallery="caricature"
+        tabindex="0"
+      >
         <div class="polaroid-img">
           <span class="gloss"></span>
           <img
@@ -66,7 +136,11 @@
         <figcaption>Caricature</figcaption>
       </figure>
 
-      <figure class="polaroid tilt-left">
+      <figure
+        class="polaroid tilt-left"
+        data-gallery="events"
+        tabindex="0"
+      >
         <div class="polaroid-img">
           <span class="gloss"></span>
           <img
@@ -77,5 +151,153 @@
         <figcaption>Events</figcaption>
       </figure>
     </section>
+
+    <div
+      id="polaroid-modal"
+      class="polaroid-modal"
+      aria-hidden="true"
+      aria-labelledby="modal-polaroid-caption"
+      role="dialog"
+    >
+      <div class="modal-overlay" data-close-modal></div>
+      <div class="modal-content">
+        <button class="modal-close" aria-label="Close gallery" data-close-modal>
+          &times;
+        </button>
+        <div class="modal-controls">
+          <button class="modal-nav prev" aria-label="Previous photo">
+            &#10094;
+          </button>
+          <button class="modal-nav next" aria-label="Next photo">
+            &#10095;
+          </button>
+        </div>
+        <figure class="polaroid modal-polaroid">
+          <div class="polaroid-img">
+            <span class="gloss"></span>
+            <img id="modal-polaroid-img" src="" alt="Exhibition artwork" />
+          </div>
+          <figcaption id="modal-polaroid-caption">Exhibitions</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <script>
+      const createSequence = (dir, prefix, count) =>
+        Array.from(
+          { length: count },
+          (_, i) => `${dir}${prefix}${i + 1}.jpg`
+        );
+
+      const galleries = {
+        exhibitions: createSequence(
+          "assets/css/images/Photos/Expositions/",
+          "expo",
+          5
+        ),
+        streetart: createSequence(
+          "assets/css/images/Photos/STREETART/",
+          "streetart",
+          44
+        ),
+        caricature: createSequence(
+          "assets/css/images/Photos/CARICATURE/",
+          "caricature",
+          19
+        ),
+        events: createSequence(
+          "assets/css/images/Photos/EVENTS/",
+          "event",
+          24
+        ),
+      };
+
+      const galleryTitles = {
+        exhibitions: "Exhibitions",
+        streetart: "Street Art",
+        caricature: "Caricature",
+        events: "Events",
+      };
+
+      const modal = document.getElementById("polaroid-modal");
+      const modalImg = document.getElementById("modal-polaroid-img");
+      const modalCaption = document.getElementById("modal-polaroid-caption");
+      const prevBtn = modal.querySelector(".modal-nav.prev");
+      const nextBtn = modal.querySelector(".modal-nav.next");
+      let currentGallery = null;
+      let currentIndex = 0;
+      let touchStartX = 0;
+
+      function updateModalImage() {
+        if (!currentGallery) return;
+        const images = galleries[currentGallery];
+        modalImg.src = images[currentIndex];
+        modalImg.alt = `${currentGallery} artwork ${currentIndex + 1}`;
+      }
+
+      function openGallery(name) {
+        if (!galleries[name]) return;
+        currentGallery = name;
+        currentIndex = 0;
+        modal.classList.add("show");
+        modal.setAttribute("aria-hidden", "false");
+        modalCaption.textContent = galleryTitles[name] || name;
+        updateModalImage();
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeModal() {
+        modal.classList.remove("show");
+        modal.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+        currentGallery = null;
+      }
+
+      function showNext(delta) {
+        if (!currentGallery) return;
+        const images = galleries[currentGallery];
+        currentIndex = (currentIndex + delta + images.length) % images.length;
+        updateModalImage();
+      }
+
+      document.querySelectorAll("[data-gallery]").forEach((figure) => {
+        figure.addEventListener("click", () =>
+          openGallery(figure.dataset.gallery)
+        );
+        figure.addEventListener("keypress", (evt) => {
+          if (evt.key === "Enter" || evt.key === " ") {
+            evt.preventDefault();
+            openGallery(figure.dataset.gallery);
+          }
+        });
+      });
+
+      prevBtn.addEventListener("click", () => showNext(-1));
+      nextBtn.addEventListener("click", () => showNext(1));
+
+      modal
+        .querySelectorAll("[data-close-modal]")
+        .forEach((el) => el.addEventListener("click", closeModal));
+
+      document.addEventListener("keydown", (evt) => {
+        if (!modal.classList.contains("show")) return;
+        if (evt.key === "Escape") closeModal();
+        if (evt.key === "ArrowRight") showNext(1);
+        if (evt.key === "ArrowLeft") showNext(-1);
+      });
+
+      modal.addEventListener("touchstart", (evt) => {
+        touchStartX = evt.changedTouches[0].clientX;
+      });
+      modal.addEventListener("touchend", (evt) => {
+        const touchEndX = evt.changedTouches[0].clientX;
+        const diff = touchEndX - touchStartX;
+        if (Math.abs(diff) > 50) {
+          showNext(diff > 0 ? -1 : 1);
+        }
+      });
+
+      initMenu();
+    </script>
   </body>
 </html>

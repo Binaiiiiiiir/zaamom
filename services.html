@@ -146,6 +146,20 @@
           </div>
         </section>
       </div>
+
+      <div class="card dark" data-service="illustration" tabindex="0">
+        <img src="assets/css/images/Photos/Illustration/illustration1.jpg" alt="Illustration" />
+        <section>
+          <h2>Illustration</h2>
+          <p>Custom illustrations and digital artwork tailored to your vision and brand identity.</p>
+          <div>
+            <div class="tag" aria-label="Custom Artwork">
+              <i class="fa-solid fa-palette"></i> Custom Artwork
+            </div>
+            <button>Contact</button>
+          </div>
+        </section>
+      </div>
     </section>
 
     <div
@@ -217,6 +231,7 @@
         graffiti: "Graffiti Service Request",
         caricature: "Caricature Service Request",
         talks: "Talks Service Request",
+        illustration: "Illustration Service Request",
       };
 
       const projectTypes = [
@@ -347,6 +362,39 @@
             <input type="text" id="topic-theme" name="topicTheme" placeholder="e.g., Street Art & Culture" />
           `;
           dynamicFields.appendChild(topicGroup);
+
+        } else if (service === "illustration") {
+          const projectTypeGroup = document.createElement("div");
+          projectTypeGroup.className = "form-group";
+          projectTypeGroup.innerHTML = `
+            <label for="project-type">Project Type *</label>
+            <select id="project-type" name="projectType" required>
+              <option value="">Select project type</option>
+              <option value="Digital Illustration">Digital Illustration</option>
+              <option value="Book Illustration">Book Illustration</option>
+              <option value="Editorial Illustration">Editorial Illustration</option>
+              <option value="Brand Illustration">Brand Illustration</option>
+              <option value="Character Design">Character Design</option>
+              <option value="Other">Other</option>
+            </select>
+          `;
+          dynamicFields.appendChild(projectTypeGroup);
+
+          const projectSizeGroup = document.createElement("div");
+          projectSizeGroup.className = "form-group";
+          projectSizeGroup.innerHTML = `
+            <label for="project-size">Project Size/Format</label>
+            <input type="text" id="project-size" name="projectSize" placeholder="e.g., A4, A3, or custom dimensions" />
+          `;
+          dynamicFields.appendChild(projectSizeGroup);
+
+          const deadlineGroup = document.createElement("div");
+          deadlineGroup.className = "form-group";
+          deadlineGroup.innerHTML = `
+            <label for="preferred-date">Preferred Deadline</label>
+            <input type="date" id="preferred-date" name="preferredDate" />
+          `;
+          dynamicFields.appendChild(deadlineGroup);
         }
       }
 
@@ -422,7 +470,8 @@
         const categoryMap = {
           graffiti: "Graffiti",
           caricature: "Caricature",
-          talks: "Talks"
+          talks: "Talks",
+          illustration: "Illustration"
         };
 
         const templateParams = {

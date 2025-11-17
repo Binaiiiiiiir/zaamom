@@ -113,11 +113,11 @@
         <div class="polaroid-img">
           <span class="gloss"></span>
           <img
-            src="assets/css/images/Photos/ACCESSOIRES/accessoire12.jpg"
+            src="assets/css/images/Photos/ACCESSOIRES/accessoire9.jpg"
             alt="Boards"
           />
         </div>
-        <figcaption>Boards</figcaption>
+        <figcaption>Boards <span class="caption-subtitle">(Surf, Body Board, Skateboard)</span></figcaption>
       </figure>
 
       <figure
@@ -128,11 +128,11 @@
         <div class="polaroid-img">
           <span class="gloss"></span>
           <img
-            src="assets/css/images/Photos/ACCESSOIRES/accessoire11.jpg"
+            src="assets/css/images/Photos/outfit-thumbnail.jpg"
             alt="Outfit & Accessories"
           />
         </div>
-        <figcaption>Outfit</figcaption>
+        <figcaption>Outfit<span class="caption-subtitle">(T-Shirt, Hoodies, Bag, Shoes)</span></figcaption>
       </figure>
 
       <figure
@@ -177,7 +177,19 @@
 
           <div class="form-group">
             <label for="customer-phone">Phone *</label>
-            <input type="tel" id="customer-phone" name="phone" required />
+            <input 
+              type="tel" 
+              id="customer-phone" 
+              name="phone" 
+              pattern="^[\+]?[0-9\s\-\(\)\.]{7,20}$"
+              title="Please enter a valid phone number (7-15 digits, formats like +1234567890, (123) 456-7890, or 123-456-7890)"
+              required 
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="customer-company">Company</label>
+            <input type="text" id="customer-company" name="company" />
           </div>
 
           <div id="dynamic-fields"></div>
@@ -192,7 +204,7 @@
             ></textarea>
           </div>
 
-          <button type="submit" class="submit-btn">Send Order</button>
+          <button type="submit" class="submit-btn">Send Request</button>
         </form>
       </div>
     </div>
@@ -352,8 +364,42 @@
         form.reset();
       }
 
+      // Phone number validation
+      const phoneInput = document.getElementById("customer-phone");
+      if (phoneInput) {
+        phoneInput.addEventListener("input", function(e) {
+          let value = e.target.value;
+          value = value.replace(/[^\d\+\-\(\)\.\s]/g, '');
+          e.target.value = value;
+        });
+
+        phoneInput.addEventListener("blur", function(e) {
+          const phoneValue = e.target.value.replace(/[\s\-\(\)\.]/g, '');
+          if (phoneValue.length > 0 && phoneValue.length < 7) {
+            e.target.setCustomValidity("Enter a valid phone number :)");
+          } else if (phoneValue.length > 15) {
+            e.target.setCustomValidity("Phone number is too long (maximum 15 digits)");
+          } else {
+            e.target.setCustomValidity("");
+          }
+        });
+      }
+
       form.addEventListener("submit", (e) => {
         e.preventDefault();
+        
+        // Validate phone number before submission
+        if (phoneInput) {
+          const phoneValue = phoneInput.value.replace(/[\s\-\(\)\.]/g, '');
+          if (phoneValue.length < 7 || phoneValue.length > 15) {
+            phoneInput.setCustomValidity("Please enter a valid phone number (7-15 digits)");
+            phoneInput.reportValidity();
+            return;
+          } else {
+            phoneInput.setCustomValidity("");
+          }
+        }
+
         const submitBtn = form.querySelector(".submit-btn");
         const originalText = submitBtn.textContent;
         
@@ -371,6 +417,7 @@
           customer_name: data.name || "",
           customer_email: data.email || "",
           customer_phone: data.phone || "",
+          company: data.company || "",
           board_type: data.boardType || "",
           board_size: data.boardSize || "",
           outfit_type: data.outfitType || "",

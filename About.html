@@ -87,7 +87,7 @@
       </div>
       <div class="right-div">
         <div class="title-left">
-          <span class="about-heading">About</span>
+          <img class="about-heading" src="assets/css/images/about.png" alt="About" />
         </div>
         <div class="text-left">
           <div>
@@ -207,11 +207,7 @@ function setRandomAboutImage() {
   if (!aboutHero) return;
   const randomIndex = Math.floor(Math.random() * totalAboutImages) + 1;
   aboutHero.src = `assets/css/images/Photos/ABOUT/zaamom-about${randomIndex}.jpg`;
-  if (aboutHeading && headingColors[randomIndex]) {
-    aboutHeading.style.color = headingColors[randomIndex];
-  } else if (aboutHeading) {
-    aboutHeading.style.color = '#111';
-  }
+  // Color change removed since about-heading is now an image
 }
 
 setRandomAboutImage();

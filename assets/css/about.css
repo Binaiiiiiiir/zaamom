@@ -3,10 +3,18 @@
 }
 
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap");
 
 @font-face {
   font-family: "DonGraffiti";
   src: url("../webfonts/DonGraffiti.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "AvenirCondensedHand";
+  src: url("../webfonts/avenircondensedhand/AvenirCondensedHand.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -109,22 +117,23 @@
 }
 
 .about-heading {
-  font-family: "DonGraffiti", cursive;
-  letter-spacing: 0.4rem;
-  text-transform: uppercase;
+  max-width: 100%;
+  height: auto;
+  width: clamp(200px, 30vw, 400px);
+  object-fit: contain;
 }
 .text-left {
   margin-top: 40px;
   width: 70%;
   display: flex;
-  color: #000;
-  font-family: "IBM Plex Mono", monospace;
+  color: #5f5f5f;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
   font-size: 1.2rem;
   /* margin: 40px 40px; */
   flex-direction: row;
   /* text-align: center; */
   justify-content: center;
-  word-spacing: -0.31em;
   align-items: center;
   box-sizing: border-box;
 }

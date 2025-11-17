@@ -17,6 +17,7 @@
   font-style: normal;
   font-display: swap;
 }
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap");
 
 *,
 *::before,
@@ -142,6 +143,8 @@ body {
 }
 
 .gallery-intro {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
   font-size: 1rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;

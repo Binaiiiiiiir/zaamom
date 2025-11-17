@@ -12,6 +12,13 @@
   font-style: normal;
   font-display: swap;
 }
+@font-face {
+  font-family: "ThereBrat";
+  src: url("../webfonts/There Brat.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 
 *,
 *::before,
@@ -313,7 +320,7 @@ body {
   text-transform: none;
   color: #1c3f91;
   text-align: center;
-  font-family: "AuthorHand", cursive;
+  font-family: "ThereBrat", cursive;
   font-weight: 600;
 }
 
@@ -322,6 +329,7 @@ body {
   letter-spacing: 0.18em;
   bottom: 30px;
   font-weight: 700;
+  font-family: "ThereBrat", cursive;
 }
 
 @media (max-width: 900px) {

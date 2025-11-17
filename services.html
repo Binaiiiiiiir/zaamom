@@ -3,7 +3,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="assets/css/store.css" />
+    <link rel="stylesheet" href="assets/css/services.css" />
     <link
       rel="icon"
       type="image/x-icon"
@@ -104,6 +104,49 @@
       </p>
     </main>
 
+    <section class="services-cards">
+      <div class="card dark" data-service="caricature" tabindex="0">
+        <img src="assets/css/images/Photos/CARICATURE/caricature18.jpg" alt="Caricature" />
+        <section>
+          <h2>Caricature</h2>
+          <p>Personalized portraits with a unique artistic twist. Perfect for events and gifts.</p>
+          <div>
+            <div class="tag" aria-label="Events">
+              <i class="fa-solid fa-user-pen"></i> Events
+            </div>
+            <button>Contact</button>
+          </div>
+        </section>
+      </div>
+
+      <div class="card dark" data-service="graffiti" tabindex="0">
+        <img src="assets/css/images/Photos/STREETART/streetart8.jpg" alt="Graffiti" />
+        <section>
+          <h2>Graffiti</h2>
+          <p>Bold and vibrant murals that transform spaces. Large-scale projects and installations.</p>
+          <div>
+            <div class="tag" aria-label="Large scale">
+              <i class="fa-solid fa-spray-can"></i> Large Scale
+            </div>
+            <button>Contact</button>
+          </div>
+        </section>
+      </div>
+
+      <div class="card dark" data-service="talks" tabindex="0">
+        <img src="assets/css/images/Photos/talks1.png" alt="Talks" />
+        <section>
+          <h2>Talks</h2>
+          <p>Engaging presentations and discussions about art, creativity, and street culture.</p>
+          <div>
+            <div class="tag" aria-label="Presentations">
+              <i class="fa-solid fa-microphone"></i> Presentations
+            </div>
+            <button>Contact</button>
+          </div>
+        </section>
+      </div>
+    </section>
 
     <div
       id="order-modal"
@@ -117,7 +160,7 @@
           &times;
         </button>
         <form id="order-form" class="order-form">
-          <h2 id="form-title" class="form-title">Order Form</h2>
+          <h2 id="form-title" class="form-title">Service Request</h2>
           
           <div class="form-group">
             <label for="customer-name">Name *</label>
@@ -131,7 +174,19 @@
 
           <div class="form-group">
             <label for="customer-phone">Phone *</label>
-            <input type="tel" id="customer-phone" name="phone" required />
+            <input 
+              type="tel" 
+              id="customer-phone" 
+              name="phone" 
+              pattern="^[\+]?[0-9\s\-\(\)\.]{7,20}$"
+              title="Please enter a valid phone number (7-15 digits, formats like +1234567890, (123) 456-7890, or 123-456-7890)"
+              required 
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="customer-company">Company</label>
+            <input type="text" id="customer-company" name="company" />
           </div>
 
           <div id="dynamic-fields"></div>
@@ -142,11 +197,11 @@
               id="customer-message"
               name="message"
               rows="4"
-              placeholder="Tell us more about your order..."
+              placeholder="Tell us more about your request..."
             ></textarea>
           </div>
 
-          <button type="submit" class="submit-btn">Send Order</button>
+          <button type="submit" class="submit-btn">Send Request</button>
         </form>
       </div>
     </div>
@@ -156,142 +211,149 @@
       const form = document.getElementById("order-form");
       const formTitle = document.getElementById("form-title");
       const dynamicFields = document.getElementById("dynamic-fields");
-      let currentCategory = null;
+      let currentService = null;
 
-      const categoryTitles = {
-        boards: "Order Boards",
-        outfit: "Order Outfit & Accessories",
-        canvas: "Order Canvas",
+      const serviceTitles = {
+        graffiti: "Graffiti Service Request",
+        caricature: "Caricature Service Request",
+        talks: "Talks Service Request",
       };
 
-      const boardSizes = {
-        surf: ["5'0\"", "5'6\"", "6'0\"", "6'6\"", "7'0\"", "7'6\"", "8'0\"", "9'0\""],
-        "body board": ["36\"", "38\"", "40\"", "42\""],
-        skateboard: ["7.5\"", "7.75\"", "8.0\"", "8.25\"", "8.5\""],
-      };
-
-      const outfitSizes = {
-        tshirt: ["XS", "S", "M", "L", "XL", "XXL"],
-        hoodies: ["S", "M", "L", "XL", "XXL"],
-        bag: ["Small", "Medium", "Large"],
-        shoes: ["36", "37", "38", "39", "40", "41", "42", "43", "44", "45"],
-      };
-
-      const canvasSizes = [
-        "20x30 cm",
-        "30x40 cm",
-        "40x50 cm",
-        "50x70 cm",
-        "60x80 cm",
-        "70x100 cm",
-        "80x120 cm",
-        "100x150 cm",
+      const projectTypes = [
+        "Mural",
+        "Wall Art",
+        "Installation",
+        "Indoor Project",
+        "Outdoor Project",
+        "Other"
       ];
 
-      function generateDynamicFields(category) {
+      const eventTypes = [
+        "Corporate Event",
+        "Festival",
+        "Conference",
+        "Workshop",
+        "School Event",
+        "Other"
+      ];
+
+      function generateDynamicFields(service) {
         dynamicFields.innerHTML = "";
 
-        if (category === "boards") {
-          const typeGroup = document.createElement("div");
-          typeGroup.className = "form-group";
-          typeGroup.innerHTML = `
-            <label for="board-type">Board Type *</label>
-            <select id="board-type" name="boardType" required>
-              <option value="">Select board type</option>
-              <option value="surf">Surf</option>
-              <option value="body board">Body Board</option>
-              <option value="skateboard">Skateboard</option>
+        if (service === "graffiti") {
+          const projectTypeGroup = document.createElement("div");
+          projectTypeGroup.className = "form-group";
+          projectTypeGroup.innerHTML = `
+            <label for="project-type">Project Type *</label>
+            <select id="project-type" name="projectType" required>
+              <option value="">Select project type</option>
+              ${projectTypes.map(type => `<option value="${type}">${type}</option>`).join("")}
             </select>
           `;
-          dynamicFields.appendChild(typeGroup);
+          dynamicFields.appendChild(projectTypeGroup);
 
-          const sizeGroup = document.createElement("div");
-          sizeGroup.className = "form-group";
-          sizeGroup.innerHTML = `
-            <label for="board-size">Board Size *</label>
-            <select id="board-size" name="boardSize" required disabled>
-              <option value="">Select board type first</option>
-            </select>
+          const projectSizeGroup = document.createElement("div");
+          projectSizeGroup.className = "form-group";
+          projectSizeGroup.innerHTML = `
+            <label for="project-size">Project Size</label>
+            <input type="text" id="project-size" name="projectSize" placeholder="e.g., 5m x 3m or Large scale" />
           `;
-          dynamicFields.appendChild(sizeGroup);
+          dynamicFields.appendChild(projectSizeGroup);
 
-          document.getElementById("board-type").addEventListener("change", (e) => {
-            const boardType = e.target.value;
-            const sizeSelect = document.getElementById("board-size");
-            sizeSelect.innerHTML = '<option value="">Select size</option>';
-            if (boardType && boardSizes[boardType]) {
-              boardSizes[boardType].forEach((size) => {
-                const option = document.createElement("option");
-                option.value = size;
-                option.textContent = size;
-                sizeSelect.appendChild(option);
-              });
-              sizeSelect.disabled = false;
-            } else {
-              sizeSelect.disabled = true;
-            }
-          });
-        } else if (category === "outfit") {
-          const outfitGroup = document.createElement("div");
-          outfitGroup.className = "form-group";
-          outfitGroup.innerHTML = `
-            <label for="outfit-type">Outfit *</label>
-            <select id="outfit-type" name="outfitType" required>
-              <option value="">Select outfit</option>
-              <option value="tshirt">T-Shirt</option>
-              <option value="hoodies">Hoodies</option>
-              <option value="bag">Bag</option>
-              <option value="shoes">Shoes</option>
-            </select>
+          const locationGroup = document.createElement("div");
+          locationGroup.className = "form-group";
+          locationGroup.innerHTML = `
+            <label for="location">Location</label>
+            <input type="text" id="location" name="location" placeholder="City or address" />
           `;
-          dynamicFields.appendChild(outfitGroup);
+          dynamicFields.appendChild(locationGroup);
 
-          const sizeGroup = document.createElement("div");
-          sizeGroup.className = "form-group";
-          sizeGroup.innerHTML = `
-            <label for="outfit-size">Size *</label>
-            <select id="outfit-size" name="outfitSize" required disabled>
-              <option value="">Select outfit first</option>
-            </select>
+          const dateGroup = document.createElement("div");
+          dateGroup.className = "form-group";
+          dateGroup.innerHTML = `
+            <label for="preferred-date">Preferred Date</label>
+            <input type="date" id="preferred-date" name="preferredDate" />
           `;
-          dynamicFields.appendChild(sizeGroup);
+          dynamicFields.appendChild(dateGroup);
 
-          document.getElementById("outfit-type").addEventListener("change", (e) => {
-            const outfitType = e.target.value;
-            const sizeSelect = document.getElementById("outfit-size");
-            sizeSelect.innerHTML = '<option value="">Select size</option>';
-            if (outfitType && outfitSizes[outfitType]) {
-              outfitSizes[outfitType].forEach((size) => {
-                const option = document.createElement("option");
-                option.value = size;
-                option.textContent = size;
-                sizeSelect.appendChild(option);
-              });
-              sizeSelect.disabled = false;
-            } else {
-              sizeSelect.disabled = true;
-            }
-          });
-        } else if (category === "canvas") {
-          const sizeGroup = document.createElement("div");
-          sizeGroup.className = "form-group";
-          sizeGroup.innerHTML = `
-            <label for="canvas-size">Canvas Size *</label>
-            <select id="canvas-size" name="canvasSize" required>
-              <option value="">Select canvas size</option>
-              ${canvasSizes
-                .map((size) => `<option value="${size}">${size}</option>`)
-                .join("")}
+        } else if (service === "caricature") {
+          const eventTypeGroup = document.createElement("div");
+          eventTypeGroup.className = "form-group";
+          eventTypeGroup.innerHTML = `
+            <label for="event-type">Event Type *</label>
+            <select id="event-type" name="eventType" required>
+              <option value="">Select event type</option>
+              ${eventTypes.map(type => `<option value="${type}">${type}</option>`).join("")}
             </select>
           `;
-          dynamicFields.appendChild(sizeGroup);
+          dynamicFields.appendChild(eventTypeGroup);
+
+          const eventDateGroup = document.createElement("div");
+          eventDateGroup.className = "form-group";
+          eventDateGroup.innerHTML = `
+            <label for="event-date">Event Date</label>
+            <input type="date" id="event-date" name="eventDate" />
+          `;
+          dynamicFields.appendChild(eventDateGroup);
+
+          const locationGroup = document.createElement("div");
+          locationGroup.className = "form-group";
+          locationGroup.innerHTML = `
+            <label for="location">Location</label>
+            <input type="text" id="location" name="location" placeholder="City or address" />
+          `;
+          dynamicFields.appendChild(locationGroup);
+
+        } else if (service === "talks") {
+          const eventTypeGroup = document.createElement("div");
+          eventTypeGroup.className = "form-group";
+          eventTypeGroup.innerHTML = `
+            <label for="event-type">Event Type *</label>
+            <select id="event-type" name="eventType" required>
+              <option value="">Select event type</option>
+              ${eventTypes.map(type => `<option value="${type}">${type}</option>`).join("")}
+            </select>
+          `;
+          dynamicFields.appendChild(eventTypeGroup);
+
+          const eventDateGroup = document.createElement("div");
+          eventDateGroup.className = "form-group";
+          eventDateGroup.innerHTML = `
+            <label for="event-date">Event Date</label>
+            <input type="date" id="event-date" name="eventDate" />
+          `;
+          dynamicFields.appendChild(eventDateGroup);
+
+          const locationGroup = document.createElement("div");
+          locationGroup.className = "form-group";
+          locationGroup.innerHTML = `
+            <label for="location">Location</label>
+            <input type="text" id="location" name="location" placeholder="City or address" />
+          `;
+          dynamicFields.appendChild(locationGroup);
+
+          const audienceSizeGroup = document.createElement("div");
+          audienceSizeGroup.className = "form-group";
+          audienceSizeGroup.innerHTML = `
+            <label for="audience-size">Audience Size</label>
+            <input type="text" id="audience-size" name="audienceSize" placeholder="e.g., 50-100 people" />
+          `;
+          dynamicFields.appendChild(audienceSizeGroup);
+
+          const topicGroup = document.createElement("div");
+          topicGroup.className = "form-group";
+          topicGroup.innerHTML = `
+            <label for="topic-theme">Topic/Theme</label>
+            <input type="text" id="topic-theme" name="topicTheme" placeholder="e.g., Street Art & Culture" />
+          `;
+          dynamicFields.appendChild(topicGroup);
         }
       }
 
-      function openOrderForm(category) {
-        currentCategory = category;
-        formTitle.textContent = categoryTitles[category] || "Order Form";
-        generateDynamicFields(category);
+      function openServiceForm(service) {
+        currentService = service;
+        formTitle.textContent = serviceTitles[service] || "Service Request";
+        generateDynamicFields(service);
         form.reset();
         modal.classList.add("show");
         modal.setAttribute("aria-hidden", "false");
@@ -302,12 +364,50 @@
         modal.classList.remove("show");
         modal.setAttribute("aria-hidden", "true");
         document.body.style.overflow = "";
-        currentCategory = null;
+        currentService = null;
         form.reset();
+      }
+
+      // Phone number validation
+      const phoneInput = document.getElementById("customer-phone");
+      if (phoneInput) {
+        phoneInput.addEventListener("input", function(e) {
+          // Remove any non-digit characters except +, -, spaces, parentheses, and dots
+          let value = e.target.value;
+          // Allow only valid phone characters
+          value = value.replace(/[^\d\+\-\(\)\.\s]/g, '');
+          e.target.value = value;
+        });
+
+        phoneInput.addEventListener("blur", function(e) {
+          const phoneValue = e.target.value.replace(/[\s\-\(\)\.]/g, '');
+          // Check if it has at least 7 digits (minimum for a valid phone number)
+          if (phoneValue.length > 0 && phoneValue.length < 7) {
+            e.target.setCustomValidity("Enter a valid phone number :)");
+          } else if (phoneValue.length > 15) {
+            e.target.setCustomValidity("Phone number is too long (maximum 15 digits)");
+          } else {
+            e.target.setCustomValidity("");
+          }
+        });
       }
 
       form.addEventListener("submit", (e) => {
         e.preventDefault();
+        
+        // Validate phone number before submission
+        const phoneInput = document.getElementById("customer-phone");
+        if (phoneInput) {
+          const phoneValue = phoneInput.value.replace(/[\s\-\(\)\.]/g, '');
+          if (phoneValue.length < 7 || phoneValue.length > 15) {
+            phoneInput.setCustomValidity("Please enter a valid phone number (7-15 digits)");
+            phoneInput.reportValidity();
+            return;
+          } else {
+            phoneInput.setCustomValidity("");
+          }
+        }
+
         const submitBtn = form.querySelector(".submit-btn");
         const originalText = submitBtn.textContent;
         
@@ -319,17 +419,27 @@
         const data = Object.fromEntries(formData);
         
         // Prepare EmailJS template parameters
+        const categoryMap = {
+          graffiti: "Graffiti",
+          caricature: "Caricature",
+          talks: "Talks"
+        };
+
         const templateParams = {
-          category: currentCategory === "boards" ? "Boards" : 
-                   currentCategory === "outfit" ? "Outfit & Accessories" : "Canvas",
+          category: categoryMap[currentService] || "General Contact",
           customer_name: data.name || "",
           customer_email: data.email || "",
           customer_phone: data.phone || "",
-          board_type: data.boardType || "",
-          board_size: data.boardSize || "",
-          outfit_type: data.outfitType || "",
-          outfit_size: data.outfitSize || "",
-          canvas_size: data.canvasSize || "",
+          company: data.company || "",
+          subject: "", // Not used in services, but included for template compatibility
+          project_type: data.projectType || "",
+          project_size: data.projectSize || "",
+          location: data.location || "",
+          preferred_date: data.preferredDate || "",
+          event_type: data.eventType || "",
+          event_date: data.eventDate || "",
+          audience_size: data.audienceSize || "",
+          topic_theme: data.topicTheme || "",
           message: data.message || "",
         };
 
@@ -350,18 +460,18 @@
 
         // Send email using EmailJS
         emailjs
-          .send("service_3lv5cqe", "template_xd29eb7", templateParams)
+          .send("service_3lv5cqe", "template_1cmxp37", templateParams)
           .then(
             function (response) {
               console.log("EmailJS success:", response);
-              alert("Thank you! Your order has been sent successfully.");
+              alert("Thank you! Your request has been sent successfully.");
               closeModal();
             },
             function (error) {
               console.error("EmailJS error details:", error);
               console.error("Error status:", error.status);
               console.error("Error text:", error.text);
-              alert("Sorry, there was an error sending your order. Error: " + (error.text || error.status || "Unknown error") + ". Please check the console for details.");
+              alert("Sorry, there was an error sending your request. Error: " + (error.text || error.status || "Unknown error") + ". Please check the console for details.");
             }
           )
           .finally(() => {
@@ -370,6 +480,18 @@
           });
       });
 
+      // Add click handlers to service cards
+      document.querySelectorAll("[data-service]").forEach((card) => {
+        card.addEventListener("click", () => {
+          openServiceForm(card.dataset.service);
+        });
+        card.addEventListener("keypress", (evt) => {
+          if (evt.key === "Enter" || evt.key === " ") {
+            evt.preventDefault();
+            openServiceForm(card.dataset.service);
+          }
+        });
+      });
 
       modal
         .querySelectorAll("[data-close-modal]")

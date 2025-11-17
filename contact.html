@@ -12,16 +12,88 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="assets/css/contact.css" />
 	<link rel="icon" type="image/x-icon" href="assets/css/images/icons/favicon.ico">
+	<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
 	<noscript>
 		<link rel="stylesheet" href="assets/css/noscript.css" />
 	</noscript>
+	<script type="text/javascript">
+		// Initialize EmailJS when script loads
+		(function() {
+			if (typeof emailjs !== 'undefined') {
+				emailjs.init("Qi6B3pWYB6Ysn-vCi");
+			} else {
+				window.addEventListener('load', function() {
+					if (typeof emailjs !== 'undefined') {
+						emailjs.init("Qi6B3pWYB6Ysn-vCi");
+					}
+				});
+			}
+		})();
+		
+		function initMenu() {
+			var hamburger = document.querySelector(".hamburger");
+			var nav = document.querySelector("#primary-navigation");
+			if (!hamburger || !nav) return;
+
+			hamburger.addEventListener("click", function () {
+				var isOpen = nav.classList.toggle("show");
+				hamburger.setAttribute("aria-expanded", isOpen);
+				nav.setAttribute("aria-hidden", (!isOpen).toString());
+			});
+		}
+	</script>
 </head>
 
 <body class="is-preload">
 	<div class="logo-icesco">
-		<a class="logolink" href="index.html"><img src="assets/css/images/logo website zaamom3.png" alt=""></a>
+		<a class="logolink" href="index.html"><img src="assets/css/images/logo-zaamom-horizontal.png" alt=""></a>
 	</div>
+	<button
+		class="hamburger"
+		aria-expanded="false"
+		aria-controls="primary-navigation"
+		aria-label="Toggle primary navigation"
+	>
+		<img
+			class="burger"
+			src="assets/css/images/icons/menu-burger.png"
+			alt="Open menu"
+		/>
+	</button>
+
+	<nav id="primary-navigation" class="menu-panel" aria-hidden="true">
+		<a class="menu-link" href="About.html" title="About" aria-label="About">
+			<img src="assets/css/images/about.png" alt="" />
+		</a>
+		<a
+			class="menu-link"
+			href="gallery.html"
+			title="Gallery"
+			aria-label="Gallery"
+		>
+			<img src="assets/css/images/gallery.png" alt="" />
+		</a>
+		<a
+			class="menu-link"
+			href="contact.html"
+			title="Contact"
+			aria-label="Contact"
+		>
+			<img src="assets/css/images/contact.png" alt="" />
+		</a>
+		<a class="menu-link" href="store.html" title="Store" aria-label="Store">
+			<img src="assets/css/images/store.png" alt="" />
+		</a>
+		<a
+			class="menu-link"
+			href="services.html"
+			title="Services"
+			aria-label="Services"
+		>
+			<img src="assets/css/images/services.png" alt="" />
+		</a>
+	</nav>
 	<div id="wrapper">
 		<div id="bg"></div>
 		<div id="overlay"></div>
@@ -39,12 +111,11 @@
 
 						<li><a target="_blank" href="https://www.linkedin.com/in/youssef-zaimi-6a9b27236/"
 								class="icon brands fa-linkedin"><span class="label">linkedin</span></a></li>
-						<li><a href="https://www.behance.net/youssefzaimi" class="icon brands fa-behance"
-								target="_blank"><span class="label">Dribbble</span></a></li>
-						<li><a href="https://www.instagram.com/zaamom.off/" class="icon brands fa-instagram"
+						
+						<li><a href="https://www.instagram.com/zaamom/" class="icon brands fa-instagram"
 								target="_blank"><span class="label">Twitter</span></a></li>
 						<!-- <li><a href="#" class="icon brands fa-youtube"><span class="label">youtube</span></a></li> -->
-						<li><a href="mailto: zaamom.x@gmail.com" class="icon solid fa-envelope"><span
+						<li><a href="#" id="email-link" class="icon solid fa-envelope"><span
 									class="label">Email</span></a></li>
 					</ul>
 				</nav>
@@ -59,10 +130,208 @@
 
 		</div>
 	</div>
+
+	<!-- Contact Modal -->
+	<div
+		id="contact-modal"
+		class="polaroid-modal"
+		aria-hidden="true"
+		role="dialog"
+	>
+		<div class="modal-overlay" data-close-modal></div>
+		<div class="modal-content form-modal">
+			<button class="modal-close" aria-label="Close form" data-close-modal>
+				&times;
+			</button>
+			<form id="contact-form" class="order-form">
+				<h2 class="form-title">Contact Us</h2>
+				
+				<div class="form-group">
+					<label for="contact-name">Name *</label>
+					<input type="text" id="contact-name" name="name" required />
+				</div>
+
+				<div class="form-group">
+					<label for="contact-email">Email *</label>
+					<input type="email" id="contact-email" name="email" required />
+				</div>
+
+				<div class="form-group">
+					<label for="contact-phone">Phone *</label>
+					<input 
+						type="tel" 
+						id="contact-phone" 
+						name="phone" 
+						pattern="^[\+]?[0-9\s\-\(\)\.]{7,20}$"
+						title="Please enter a valid phone number (7-15 digits, formats like +1234567890, (123) 456-7890, or 123-456-7890)"
+						required 
+					/>
+				</div>
+
+				<div class="form-group">
+					<label for="contact-company">Company</label>
+					<input type="text" id="contact-company" name="company" />
+				</div>
+
+				<div class="form-group">
+					<label for="contact-message">Message</label>
+					<textarea
+						id="contact-message"
+						name="message"
+						rows="4"
+						placeholder="Tell us how we can help you..."
+					></textarea>
+				</div>
+
+				<button type="submit" class="submit-btn">Send Message</button>
+			</form>
+		</div>
+	</div>
+
 	<script>
-		window.onload = function () { document.body.classList.remove('is-preload'); }
+		window.onload = function () { 
+			document.body.classList.remove('is-preload');
+			initMenu();
+			initContactModal();
+		}
 		window.ontouchmove = function () { return false; }
 		window.onorientationchange = function () { document.body.scrollTop = 0; }
+
+		function initContactModal() {
+			const modal = document.getElementById("contact-modal");
+			const form = document.getElementById("contact-form");
+			const emailLink = document.getElementById("email-link");
+			const phoneInput = document.getElementById("contact-phone");
+
+			if (!modal || !form || !emailLink) return;
+
+			// Open modal when email link is clicked
+			emailLink.addEventListener("click", function(e) {
+				e.preventDefault();
+				openContactModal();
+			});
+
+			// Phone number validation
+			if (phoneInput) {
+				phoneInput.addEventListener("input", function(e) {
+					let value = e.target.value;
+					value = value.replace(/[^\d\+\-\(\)\.\s]/g, '');
+					e.target.value = value;
+				});
+
+				phoneInput.addEventListener("blur", function(e) {
+					const phoneValue = e.target.value.replace(/[\s\-\(\)\.]/g, '');
+					if (phoneValue.length > 0 && phoneValue.length < 7) {
+						e.target.setCustomValidity("Enter a valid phone number :)");
+					} else if (phoneValue.length > 15) {
+						e.target.setCustomValidity("Phone number is too long (maximum 15 digits)");
+					} else {
+						e.target.setCustomValidity("");
+					}
+				});
+			}
+
+			function openContactModal() {
+				form.reset();
+				modal.classList.add("show");
+				modal.setAttribute("aria-hidden", "false");
+				document.body.style.overflow = "hidden";
+			}
+
+			function closeModal() {
+				modal.classList.remove("show");
+				modal.setAttribute("aria-hidden", "true");
+				document.body.style.overflow = "";
+				form.reset();
+			}
+
+			// Form submission
+			form.addEventListener("submit", function(e) {
+				e.preventDefault();
+				
+				// Validate phone number before submission
+				if (phoneInput) {
+					const phoneValue = phoneInput.value.replace(/[\s\-\(\)\.]/g, '');
+					if (phoneValue.length < 7 || phoneValue.length > 15) {
+						phoneInput.setCustomValidity("Please enter a valid phone number (7-15 digits)");
+						phoneInput.reportValidity();
+						return;
+					} else {
+						phoneInput.setCustomValidity("");
+					}
+				}
+
+				const submitBtn = form.querySelector(".submit-btn");
+				const originalText = submitBtn.textContent;
+				
+				submitBtn.disabled = true;
+				submitBtn.textContent = "Sending...";
+
+				const formData = new FormData(form);
+				const data = Object.fromEntries(formData);
+				
+				const templateParams = {
+					category: "General Contact",
+					customer_name: data.name || "",
+					customer_email: data.email || "",
+					customer_phone: data.phone || "",
+					company: data.company || "",
+					subject: "",
+					project_type: "",
+					project_size: "",
+					location: "",
+					preferred_date: "",
+					event_type: "",
+					event_date: "",
+					audience_size: "",
+					topic_theme: "",
+					message: data.message || "",
+				};
+
+				if (typeof emailjs === 'undefined') {
+					alert("EmailJS is not loaded. Please refresh the page and try again.");
+					submitBtn.disabled = false;
+					submitBtn.textContent = originalText;
+					return;
+				}
+
+				try {
+					emailjs.init("Qi6B3pWYB6Ysn-vCi");
+				} catch (e) {
+					// Already initialized, continue
+				}
+
+				emailjs
+					.send("service_3lv5cqe", "template_1cmxp37", templateParams)
+					.then(
+						function (response) {
+							console.log("EmailJS success:", response);
+							alert("Thank you! Your message has been sent successfully.");
+							closeModal();
+						},
+						function (error) {
+							console.error("EmailJS error details:", error);
+							console.error("Error status:", error.status);
+							console.error("Error text:", error.text);
+							alert("Sorry, there was an error sending your message. Error: " + (error.text || error.status || "Unknown error") + ". Please check the console for details.");
+						}
+					)
+					.finally(function() {
+						submitBtn.disabled = false;
+						submitBtn.textContent = originalText;
+					});
+			});
+
+			// Close modal handlers
+			modal.querySelectorAll("[data-close-modal]").forEach(function(el) {
+				el.addEventListener("click", closeModal);
+			});
+
+			document.addEventListener("keydown", function(evt) {
+				if (!modal.classList.contains("show")) return;
+				if (evt.key === "Escape") closeModal();
+			});
+		}
 	</script>
 </body>
 

@@ -149,6 +149,21 @@
         </div>
         <figcaption>Canvas</figcaption>
       </figure>
+
+      <figure
+        class="polaroid tilt-left"
+        data-gallery="customization"
+        tabindex="0"
+      >
+        <div class="polaroid-img">
+          <span class="gloss"></span>
+          <img
+            src="assets/css/images/Photos/zaamom-store-customization.jpg"
+            alt="Customization"
+          />
+        </div>
+        <figcaption>Customization</figcaption>
+      </figure>
     </section>
 
     <div
@@ -220,6 +235,7 @@
         boards: "Order Boards",
         outfit: "Order Outfit & Accessories",
         canvas: "Order Canvas",
+        customization: "Customization Request",
       };
 
       const boardSizes = {
@@ -343,6 +359,94 @@
             </select>
           `;
           dynamicFields.appendChild(sizeGroup);
+        } else if (category === "customization") {
+          // Item Type dropdown
+          const itemTypeGroup = document.createElement("div");
+          itemTypeGroup.className = "form-group";
+          itemTypeGroup.innerHTML = `
+            <label for="custom-item-type">Item Type *</label>
+            <select id="custom-item-type" name="itemType" required>
+              <option value="">Select item type</option>
+              <option value="board">Board (Surf, Body Board, Skateboard)</option>
+              <option value="canvas">Canvas</option>
+              <option value="clothing">Clothing (T-Shirt, Hoodies, Jacket, Sweatshirt, etc.)</option>
+              <option value="accessories">Accessories (Bag, Shoes, Hat, Cap, etc.)</option>
+              <option value="wall-mural">Wall Mural</option>
+              <option value="vehicle-wrap">Vehicle Wrap</option>
+              <option value="furniture">Furniture</option>
+              <option value="other">Other</option>
+            </select>
+          `;
+          dynamicFields.appendChild(itemTypeGroup);
+
+          // Customization Type dropdown (dynamic based on item type)
+          const customizationTypeGroup = document.createElement("div");
+          customizationTypeGroup.className = "form-group";
+          customizationTypeGroup.innerHTML = `
+            <label for="customization-type">Customization Type *</label>
+            <select id="customization-type" name="customizationType" required disabled>
+              <option value="">Select item type first</option>
+            </select>
+          `;
+          dynamicFields.appendChild(customizationTypeGroup);
+
+          // Size/Dimensions text input
+          const sizeGroup = document.createElement("div");
+          sizeGroup.className = "form-group";
+          sizeGroup.innerHTML = `
+            <label for="custom-size">Size/Dimensions</label>
+            <input type="text" id="custom-size" name="customSize" placeholder="e.g., 30x40 cm, Large, etc." />
+          `;
+          dynamicFields.appendChild(sizeGroup);
+
+          // Color Preferences text input
+          const colorGroup = document.createElement("div");
+          colorGroup.className = "form-group";
+          colorGroup.innerHTML = `
+            <label for="color-preferences">Color Preferences</label>
+            <input type="text" id="color-preferences" name="colorPreferences" placeholder="e.g., Blue and white, Pastel colors, etc." />
+          `;
+          dynamicFields.appendChild(colorGroup);
+
+          // Design Description textarea
+          const designGroup = document.createElement("div");
+          designGroup.className = "form-group";
+          designGroup.innerHTML = `
+            <label for="design-description">Design Description *</label>
+            <textarea id="design-description" name="designDescription" rows="4" required placeholder="Describe your customization idea in detail..."></textarea>
+          `;
+          dynamicFields.appendChild(designGroup);
+
+          // Define customization types based on item type
+          const customizationTypes = {
+            board: ["Custom Design", "Personalized Text", "Logo/Branding", "Color Scheme", "Full Custom Artwork"],
+            canvas: ["Custom Design", "Personalized Text", "Portrait", "Abstract", "Full Custom Artwork"],
+            clothing: ["Custom Design", "Personalized Text", "Logo/Branding", "Color Scheme", "Pattern Design"],
+            accessories: ["Custom Design", "Personalized Text", "Logo/Branding", "Color Scheme"],
+            "wall-mural": ["Custom Design", "Logo/Branding", "Color Scheme", "Full Custom Artwork"],
+            "vehicle-wrap": ["Custom Design", "Logo/Branding", "Color Scheme", "Full Custom Artwork"],
+            furniture: ["Custom Design", "Color Scheme", "Full Custom Artwork"],
+            other: ["Custom Design", "Personalized Text", "Logo/Branding", "Color Scheme", "Full Custom Artwork"]
+          };
+
+          // Event listener for item type change
+          document.getElementById("custom-item-type").addEventListener("change", (e) => {
+            const itemType = e.target.value;
+            const customizationSelect = document.getElementById("customization-type");
+            customizationSelect.innerHTML = '<option value="">Select customization type</option>';
+            
+            if (itemType && customizationTypes[itemType]) {
+              customizationTypes[itemType].forEach((type) => {
+                const option = document.createElement("option");
+                option.value = type.toLowerCase().replace(/\s+/g, "-");
+                option.textContent = type;
+                customizationSelect.appendChild(option);
+              });
+              customizationSelect.disabled = false;
+            } else {
+              customizationSelect.disabled = true;
+            }
+          });
         }
       }
 
@@ -411,18 +515,26 @@
         const data = Object.fromEntries(formData);
         
         // Prepare EmailJS template parameters
+        let categoryName = "Canvas";
+        if (currentCategory === "boards") {
+          categoryName = "Boards";
+        } else if (currentCategory === "outfit") {
+          categoryName = "Outfit & Accessories";
+        } else if (currentCategory === "customization") {
+          categoryName = "Customization";
+        }
+
         const templateParams = {
-          category: currentCategory === "boards" ? "Boards" : 
-                   currentCategory === "outfit" ? "Outfit & Accessories" : "Canvas",
+          category: categoryName,
           customer_name: data.name || "",
           customer_email: data.email || "",
           customer_phone: data.phone || "",
           company: data.company || "",
-          board_type: data.boardType || "",
-          board_size: data.boardSize || "",
-          outfit_type: data.outfitType || "",
-          outfit_size: data.outfitSize || "",
-          canvas_size: data.canvasSize || "",
+          board_type: currentCategory === "customization" ? (data.itemType || "") : (data.boardType || ""),
+          board_size: currentCategory === "customization" ? (data.customizationType || "") : (data.boardSize || ""),
+          outfit_type: currentCategory === "customization" ? (data.customSize || "") : (data.outfitType || ""),
+          outfit_size: currentCategory === "customization" ? (data.colorPreferences || "") : (data.outfitSize || ""),
+          canvas_size: currentCategory === "customization" ? (data.designDescription || "") : (data.canvasSize || ""),
           message: data.message || "",
         };
 

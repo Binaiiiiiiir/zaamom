@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Order Notification</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            background-color: #ffffff;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0;
+            border: 1px solid #e0e0e0;
+        }
+        .banner {
+            background-color: #000000;
+            padding: 20px 0;
+            text-align: center;
+        }
+        .banner img {
+            width: 180px;
+        }
+        .content {
+            padding: 30px;
+        }
+        h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 6px;
+        }
+        .section {
+            margin-bottom: 25px;
+        }
+        .label {
+            font-weight: bold;
+            color: #333;
+        }
+        .field-row {
+            margin-bottom: 12px;
+        }
+        .field-row:empty {
+            display: none;
+        }
+        .footer {
+            margin-top: 30px;
+            font-size: 13px;
+            color: #777;
+            text-align: center;
+            padding: 25px 20px;
+            border-top: 1px solid #e0e0e0;
+        }
+        .footer img {
+            width: 160px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- TOP BANNER -->
+    <div class="banner">
+        <img src="https://zaamom.com/assets/css/images/logo-zaamom-horizontal-white.png" alt="Zaamom Logo">
+    </div>
+    <div class="content">
+        <p>Hello,</p>
+        <p>You have received a new order from {{customer_name}},</p>
+        
+        <div class="section">
+            <h2>Order Details</h2>
+            <p><span class="label">Category:</span> {{category}}</p>
+        </div>
+
+        <div class="section">
+            <h2>Customer Information</h2>
+            <p><span class="label">Name:</span> {{customer_name}}</p>
+            <p><span class="label">Email:</span> {{customer_email}}</p>
+            <p><span class="label">Phone:</span> {{customer_phone}}</p>
+            <div class="field-row">
+                <p><span class="label">Company:</span> {{company}}</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Order Specifications</h2>
+            <div class="field-row">
+                <p><span class="label">Board Type / Item Type:</span> {{board_type}}</p>
+            </div>
+            <div class="field-row">
+                <p><span class="label">Board Size / Customization Type:</span> {{board_size}}</p>
+            </div>
+            <div class="field-row">
+                <p><span class="label">Outfit Type / Size/Dimensions:</span> {{outfit_type}}</p>
+            </div>
+            <div class="field-row">
+                <p><span class="label">Outfit Size / Color Preferences:</span> {{outfit_size}}</p>
+            </div>
+            <div class="field-row">
+                <p><span class="label">Canvas Size / Design Description:</span> {{canvas_size}}</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Message</h2>
+            <p>{{message}}</p>
+        </div>
+    </div>
+
+    <!-- FOOTER WITH LOGO -->
+    <div class="footer">
+        <p>This email was sent automatically from your Zaamom Store website.</p>
+        <img src="https://zaamom.com/assets/css/images/icons/favicon.ico" alt="Zaamom Logo">
+    </div>
+</div>
+</body>
+</html>
+
